@@ -1,6 +1,6 @@
 package com.dashboard.backend.controller;
 
-import com.dashboard.backend.service.OpenAiService;
+import com.dashboard.backend.service.GeminiService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
 public class AgentController {
 
     @Autowired
-    private OpenAiService openAiService;
+    private GeminiService geminiService;
 
     private final ExecutorService executor = Executors.newCachedThreadPool();
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -39,10 +39,10 @@ public class AgentController {
 
         executor.execute(() -> {
             try {
-                openAiService.processAgentChat(
+                geminiService.processAgentChat(
                     request.getMessage(),
                     request.getHistory() != null ? request.getHistory() : List.of(),
-                    new OpenAiService.SseReporter() {
+                    new GeminiService.SseReporter() {
                         
                         private void sendEvent(String name, Object data) {
                             try {

@@ -50,13 +50,13 @@ export default function GitHubWidget({ username }) {
   const getLanguageColor = (lang) => {
     if (!lang) return 'bg-gray-500';
     const l = lang.toLowerCase();
-    if (l.contains && l.contains('javascript')) return 'bg-yellow-400';
-    if (l.contains && l.contains('typescript')) return 'bg-blue-400';
-    if (l.contains && l.contains('java')) return 'bg-orange-500';
-    if (l.contains && l.contains('html')) return 'bg-red-500';
-    if (l.contains && l.contains('css')) return 'bg-indigo-500';
-    if (l.contains && l.contains('hcl')) return 'bg-violet-600';
-    if (l.contains && l.contains('yaml')) return 'bg-teal-500';
+    if (l.includes('javascript')) return 'bg-yellow-400';
+    if (l.includes('typescript')) return 'bg-blue-400';
+    if (l.includes('java')) return 'bg-orange-500';
+    if (l.includes('html')) return 'bg-red-500';
+    if (l.includes('css')) return 'bg-indigo-500';
+    if (l.includes('hcl')) return 'bg-violet-600';
+    if (l.includes('yaml')) return 'bg-teal-500';
     return 'bg-indigo-400';
   };
 

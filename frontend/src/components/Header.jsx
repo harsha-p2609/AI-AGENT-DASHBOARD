@@ -29,7 +29,13 @@ export default function Header({ searchVal, onSearchChange, onGlobalSearch, onRe
     <header className="bg-darkcard border-b border-gray-800 px-8 py-4 flex items-center justify-between sticky top-0 z-10 w-full">
       {/* Search Bar */}
       <form onSubmit={handleSearchSubmit} className="relative w-96 group">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-indigo-400 transition" />
+        <button 
+          type="submit" 
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-indigo-400 group-focus-within:text-indigo-400 transition cursor-pointer"
+          title="Search"
+        >
+          <Search className="w-4 h-4" />
+        </button>
         <input 
           type="text" 
           value={searchVal}
@@ -37,7 +43,6 @@ export default function Header({ searchVal, onSearchChange, onGlobalSearch, onRe
           placeholder="Search technologies, news, or triggers..."
           className="w-full pl-10 pr-4 py-2 bg-darkbg border border-gray-800 rounded-xl text-sm text-gray-200 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/30 transition placeholder-gray-500"
         />
-        <button type="submit" className="hidden" />
       </form>
 
       {/* Clock & Status Panel */}

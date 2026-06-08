@@ -69,9 +69,31 @@ export default function App() {
   };
 
   const handleGlobalSearch = (val) => {
-    if (!val.trim()) return;
-    // Update news query to search news
-    setNewsQuery(val);
+    const cleanVal = val.trim();
+    if (!cleanVal) return;
+
+    // Smart routing based on query format
+    if (cleanVal.startsWith('@')) {
+      const user = cleanVal.substring(1).trim();
+      if (user) setGithubUser(user);
+    } else if (cleanVal.toLowerCase().startsWith('github:')) {
+      const user = cleanVal.substring(7).trim();
+      if (user) setGithubUser(user);
+    } else if (cleanVal.toLowerCase().startsWith('weather:')) {
+      const city = cleanVal.substring(8).trim();
+      if (city) setWeatherCity(city);
+    } else {
+      const weatherInMatch = cleanVal.match(/weather\s+(?:in|for|at)\s+(.+)/i);
+      const cityWeatherMatch = cleanVal.match(/(.+)\s+weather/i);
+      if (weatherInMatch) {
+        setWeatherCity(weatherInMatch[1].trim());
+      } else if (cityWeatherMatch && !['news', 'tech', 'technology', 'github'].includes(cityWeatherMatch[1].trim().toLowerCase())) {
+        setWeatherCity(cityWeatherMatch[1].trim());
+      } else {
+        // Default to news query
+        setNewsQuery(cleanVal);
+      }
+    }
     setSearchVal('');
   };
 
@@ -112,7 +134,7 @@ export default function App() {
         <Header 
           searchVal={searchVal}
           onSearchChange={setSearchVal}
-          onGlobalSearch={handleSearchSubmit => handleGlobalSearch(searchVal)}
+          onGlobalSearch={handleGlobalSearch}
           onRefreshAll={handleRefreshAll}
         />
 

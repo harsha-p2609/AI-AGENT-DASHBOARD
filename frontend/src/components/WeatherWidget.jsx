@@ -40,9 +40,9 @@ export default function WeatherWidget({ city }) {
 
   const getWeatherIcon = (iconCode, description = '') => {
     const desc = description.toLowerCase();
-    if (desc.contains && desc.contains('rain')) return <CloudRain className="w-12 h-12 text-blue-400" />;
-    if (desc.contains && desc.contains('cloud')) return <Cloud className="w-12 h-12 text-gray-400" />;
-    if (desc.contains && desc.contains('clear')) return <Sun className="w-12 h-12 text-yellow-400" />;
+    if (desc.includes('rain')) return <CloudRain className="w-12 h-12 text-blue-400" />;
+    if (desc.includes('cloud')) return <Cloud className="w-12 h-12 text-gray-400" />;
+    if (desc.includes('clear')) return <Sun className="w-12 h-12 text-yellow-400" />;
     
     // Default fallback using standard OpenWeather icon if available
     if (iconCode) {

@@ -39,8 +39,9 @@ public class NewsService {
         if (apiKey != null && !apiKey.trim().isEmpty() && !apiKey.equals("mock_key")) {
             try {
                 String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
-                String url = String.format("https://newsapi.org/v2/everything?q=%s&language=en&sortBy=publishedAt&pageSize=15&apiKey=%s",
-                        encodedQuery, apiKey);
+                // Using newsdata.io API
+                String url = String.format("https://newsdata.io/api/1/latest?apikey=%s&q=%s&language=en",
+                        apiKey, encodedQuery);
 
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create(url))
@@ -52,7 +53,8 @@ public class NewsService {
 
                 if (response.statusCode() == 200) {
                     JsonNode root = objectMapper.readTree(response.body());
-                    JsonNode articles = root.path("articles");
+                    // newsdata.io returns "results" array
+                    JsonNode articles = root.path("results");
                     
                     List<Map<String, Object>> result = new ArrayList<>();
                     if (articles.isArray()) {
@@ -60,20 +62,23 @@ public class NewsService {
                             Map<String, Object> artMap = new HashMap<>();
                             artMap.put("title", article.path("title").asText());
                             artMap.put("description", article.path("description").asText());
-                            artMap.put("source", article.path("source").path("name").asText());
-                            artMap.put("url", article.path("url").asText());
-                            artMap.put("urlToImage", article.path("urlToImage").asText());
-                            artMap.put("publishedAt", article.path("publishedAt").asText());
-                            artMap.put("author", article.path("author").asText());
+                            // newsdata.io uses "source_id" and "link" and "image_url"
+                            artMap.put("source", article.path("source_id").asText());
+                            artMap.put("url", article.path("link").asText());
+                            artMap.put("urlToImage", article.path("image_url").asText());
+                            artMap.put("publishedAt", article.path("pubDate").asText());
+                            artMap.put("author", article.path("creator").asText("Unknown"));
                             result.add(artMap);
                         }
                     }
                     if (!result.isEmpty()) {
                         return result;
                     }
+                } else {
+                    System.err.println("NewsData.io returned status " + response.statusCode() + ": " + response.body());
                 }
             } catch (Exception e) {
-                System.err.println("Error fetching news from NewsAPI: " + e.getMessage());
+                System.err.println("Error fetching news from NewsData.io: " + e.getMessage());
                 // Fall back to mock
             }
         }
