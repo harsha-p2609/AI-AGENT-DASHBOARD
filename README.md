@@ -4,6 +4,10 @@ APEX Dashboard is an interactive developer workspace and productivity portal. It
 
 ---
 
+## LIVE https://ai-agent-dashboard-ruby.vercel.app/
+
+
+
 ## 🛠️ Technology Stack
 
 * **Frontend:** React (Vite), Tailwind CSS (Vanilla styling overrides), Lucide React (Icons)
