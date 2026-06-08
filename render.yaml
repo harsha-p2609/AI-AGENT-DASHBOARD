@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: ai-agent-backend
+    runtime: java
+    rootDir: backend
+    buildCommand: ./gradlew build -x test
+    startCommand: java -jar build/libs/*.jar
