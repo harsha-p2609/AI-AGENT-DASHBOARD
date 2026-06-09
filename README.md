@@ -4,8 +4,11 @@ APEX Dashboard is an interactive developer workspace and productivity portal. It
 
 ---
 
-## LIVE https://ai-agent-dashboard-ruby.vercel.app/
+## LIVE
 
+https://ai-agent-dashboard-ruby.vercel.app/
+
+> **Note:** The hosted version may take some time to respond on the first request because the backend is deployed on a free-tier Render instance, which can go into sleep mode after inactivity. For faster and more reliable testing, please run the application locally.
 
 
 ## 🛠️ Technology Stack
