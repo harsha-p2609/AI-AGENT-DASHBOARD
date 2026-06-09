@@ -16,7 +16,7 @@ https://ai-agent-dashboard-ruby.vercel.app/
 * **Frontend:** React (Vite), Tailwind CSS (Vanilla styling overrides), Lucide React (Icons)
 * **Backend:** Spring Boot 3.4.2 (Java 21), Hibernate JPA, Server-Sent Events (SSE) Emitter
 * **Database:** PostgreSQL (Relation schema with automatic schema updates)
-* **AI Engine:** OpenAI Chat Completions API with Function Calling & custom fallback simulated mock engine
+* **AI Engine:** GeminiAI Chat Completions API with Function Calling & custom fallback simulated mock engine
 
 ---
 
